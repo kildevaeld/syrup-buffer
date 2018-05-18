@@ -228,6 +228,7 @@ void sy_buffer_clear(sy_buffer_t *buffer) {
   buffer->len = 0;
   memset(buffer->data, 0, buffer->alloc);
 }
+
 void sy_buffer_compact(sy_buffer_t *buffer) {
   int len = buffer->len;
   if (0 == len) {
@@ -235,10 +236,14 @@ void sy_buffer_compact(sy_buffer_t *buffer) {
   }
   alloc_atleast(buffer, len);
 }
+
 // Stats
 size_t sy_buffer_len(sy_buffer_t *buffer) { return buffer->len; }
 size_t sy_buffer_allocs(sy_buffer_t *buffer) { return buffer->alloc; }
 
+ssize_t sy_buffer_write(sy_buffer_t *buffer, int fd) {
+  return write(fd, buffer->data, buffer->len);
+}
 // UTF-8
 
 static int utf_width(char c) {

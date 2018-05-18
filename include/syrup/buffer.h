@@ -1,6 +1,7 @@
 #pragma once
 #include <stdbool.h>
 #include <stddef.h>
+#include <sys/types.h>
 
 #define SY_IS_UTF8_4C(k) (0xf0 == (0xf8 & (k)))
 #define SY_IS_UTF8_3C(k) (0xe0 == (0xf0 & (k)))
@@ -33,6 +34,8 @@ void sy_buffer_compact(sy_buffer_t *);
 // Stats
 size_t sy_buffer_len(sy_buffer_t *);
 size_t sy_buffer_allocs(sy_buffer_t *);
+
+ssize_t sy_buffer_write(sy_buffer_t *buffer, int fd);
 
 // UTF-8
 void sy_buffer_utf8_append(sy_buffer_t *, const char *);
