@@ -28,6 +28,51 @@ void test_buffer_utf8() {
 
   sy_buffer_utf8_remove(str, 1, 2);
   TEST_ASSERT_EQUAL_STRING("Kdpiæ", sy_buffer_string(str));
+
+  sy_buffer_utf8_remove(str, 4, 1);
+  TEST_ASSERT_EQUAL_STRING("Kdpi", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "Hællo Wørld");
+  sy_buffer_utf8_remove(str, 6, 5);
+  TEST_ASSERT_EQUAL_STRING("Hællo ", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "Hællo Wørld");
+  sy_buffer_utf8_remove(str, 1, 1);
+  TEST_ASSERT_EQUAL_STRING("Hllo Wørld", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "Østers smager smørme lækkert");
+  sy_buffer_utf8_remove(str, 7, 6);
+  TEST_ASSERT_EQUAL_STRING("Østers smørme lækkert", sy_buffer_string(str));
+  sy_buffer_utf8_remove(str, 0, 1);
+  TEST_ASSERT_EQUAL_STRING("sters smørme lækkert", sy_buffer_string(str));
+  sy_buffer_utf8_remove(str, 8, 2);
+  TEST_ASSERT_EQUAL_STRING("sters smme lækkert", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "test");
+  sy_buffer_utf8_remove(str, 3, 1);
+  TEST_ASSERT_EQUAL_STRING("tes", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "tæst");
+  sy_buffer_utf8_remove(str, 1, 2);
+  TEST_ASSERT_EQUAL_STRING("tt", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "tæster");
+  sy_buffer_utf8_remove(str, 5, 1);
+  TEST_ASSERT_EQUAL_STRING("tæste", sy_buffer_string(str));
+
+  sy_buffer_utf8_remove(str, 4, 1);
+  TEST_ASSERT_EQUAL_STRING("tæst", sy_buffer_string(str));
+
+  sy_buffer_clear(str);
+  sy_buffer_utf8_append(str, "ææø");
+  sy_buffer_utf8_remove(str, 1, 1);
+  TEST_ASSERT_EQUAL_STRING("æø", sy_buffer_string(str));
 }
 
 void test_buffer() {

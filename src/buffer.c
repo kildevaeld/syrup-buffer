@@ -214,9 +214,6 @@ void sy_buffer_remove(sy_buffer_t *buffer, size_t idx, size_t len) {
 
   if (idx + len > buffer->len) {
     return;
-  } else if (idx + len == buffer->len - 1) {
-    buffer->len--;
-    return;
   }
 
   unsigned char *ptr =
@@ -277,16 +274,36 @@ void sy_buffer_utf8_appendf(sy_buffer_t *str, const char *fmt, ...) {
 static size_t find_index(sy_buffer_t *str, size_t idx) {
   size_t i = 0;
   while (i < str->len) {
-    if (i == idx)
-      return i;
+    // if (i == idx)
+    // return i;
 
     if (SY_IS_UTF(str->data[i])) {
       i += utf_width(str->data[i]);
+      // idx += utf_width(str->data[i]);
     } else {
       i++;
     }
 
-    if (i > idx)
+    if (i >= idx)
+      return i;
+  }
+  return -1;
+}
+
+static size_t find_rindex(sy_buffer_t *str, size_t idx) {
+
+  size_t i = 0;
+  while (i < str->len) {
+
+    if (SY_IS_UTF(str->data[i])) {
+      i += 1; // utf_width(str->data[i]);
+      idx += utf_width(str->data[i]);
+
+    } else {
+      i++;
+    }
+
+    if (i >= idx)
       return i;
   }
   return -1;
@@ -340,11 +357,14 @@ int sy_buffer_utf8_remove(sy_buffer_t *str, size_t idx, size_t len) {
     return 0;
 
   if (idx != 0) {
-    idx = find_index(str, idx);
+    idx = find_rindex(str, idx);
   }
+  if (len == 1)
+    len = 0;
 
   size_t eidx = find_index(str, idx + len + 1);
   size_t nlen = eidx - idx;
+
   sy_buffer_remove(str, idx, nlen);
 
   return 1;
