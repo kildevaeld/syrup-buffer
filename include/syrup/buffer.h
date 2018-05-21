@@ -3,6 +3,10 @@
 #include <stddef.h>
 #include <sys/types.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define SY_IS_UTF8_4C(k) (0xf0 == (0xf8 & (k)))
 #define SY_IS_UTF8_3C(k) (0xe0 == (0xf0 & (k)))
 #define SY_IS_UTF8_2C(k) (0xc0 == (0xe0 & (k)))
@@ -45,3 +49,7 @@ int sy_buffer_utf8_insert(sy_buffer_t *, size_t idx, const char *);
 int sy_buffer_utf8_insert_char(sy_buffer_t *, size_t idx, char);
 int sy_buffer_utf8_remove(sy_buffer_t *, size_t idx, size_t len);
 size_t sy_buffer_utf8_len(sy_buffer_t *);
+
+#ifdef __cplusplus
+}
+#endif
