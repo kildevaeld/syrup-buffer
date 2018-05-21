@@ -298,7 +298,6 @@ static size_t find_rindex(sy_buffer_t *str, size_t idx) {
     if (SY_IS_UTF(str->data[i])) {
       i += 1; // utf_width(str->data[i]);
       idx += utf_width(str->data[i]);
-
     } else {
       i++;
     }
