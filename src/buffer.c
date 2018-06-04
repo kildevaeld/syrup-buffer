@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <syrup/buffer.h>
+#include <unistd.h>
 
 #define SY_STR_BLOCK_SIZE 64
 
