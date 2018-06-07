@@ -21,6 +21,7 @@ void sy_buffer_append(sy_buffer_t *, const unsigned char *, size_t size);
 void sy_buffer_append_str(sy_buffer_t *, const char *);
 void sy_buffer_append_str_fmt(sy_buffer_t *, const char *fmt, ...);
 void sy_buffer_append_char(sy_buffer_t *, unsigned char);
+void sy_buffer_append_buffer(sy_buffer_t *, sy_buffer_t *);
 void sy_buffer_insert(sy_buffer_t *, size_t idx, const unsigned char *, size_t);
 void sy_buffer_insert_str(sy_buffer_t *, size_t idx, const char *);
 void sy_buffer_insert_char(sy_buffer_t *, size_t idx, unsigned char);

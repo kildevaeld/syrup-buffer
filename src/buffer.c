@@ -101,6 +101,10 @@ void sy_buffer_append_char(sy_buffer_t *buffer, unsigned char c) {
   buffer->len++;
 }
 
+void sy_buffer_append_buffer(sy_buffer_t *buffer, sy_buffer_t *data) {
+  sy_buffer_append(buffer, data->data, data->len);
+}
+
 void sy_buffer_insert(sy_buffer_t *buffer, size_t idx, const unsigned char *buf,
                       size_t len) {
   if (idx > buffer->len) {
