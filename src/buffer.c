@@ -90,6 +90,7 @@ void sy_buffer_append_str_fmt(sy_buffer_t *buffer, const char *fmt, ...) {
   sy_buffer_append_str(buffer, out);
   free(out);
 }
+
 void sy_buffer_append_char(sy_buffer_t *buffer, unsigned char c) {
   size_t nlen = 1 + buffer->len;
 
@@ -131,6 +132,7 @@ void sy_buffer_insert(sy_buffer_t *buffer, size_t idx, const unsigned char *buf,
   memcpy(buffer->data + idx + len, tmp, l);
   buffer->len = nlen;
 }
+
 void sy_buffer_insert_str(sy_buffer_t *buffer, size_t idx, const char *s) {
   if (idx > buffer->len) {
     return;
@@ -208,12 +210,14 @@ unsigned sy_buffer_index_get(sy_buffer_t *str, size_t idx) {
 void sy_buffer_copy(sy_buffer_t *buffer, unsigned char *buf) {
   memcpy(buf, buffer->data, buffer->len);
 }
+
 char *sy_buffer_string(sy_buffer_t *buffer) {
   char *out = malloc(sizeof(char) * buffer->len + 1);
   sy_buffer_copy(buffer, (unsigned char *)out);
   out[buffer->len] = '\0';
   return out;
 }
+
 // Remove
 void sy_buffer_remove(sy_buffer_t *buffer, size_t idx, size_t len) {
 
@@ -221,8 +225,7 @@ void sy_buffer_remove(sy_buffer_t *buffer, size_t idx, size_t len) {
     return;
   }
 
-  unsigned char *ptr =
-      buffer->data + idx; // idx > 0 ? buffer->data + idx : buffer->data;
+  unsigned char *ptr = buffer->data + idx;
   memcpy(ptr, buffer->data + (idx) + len, buffer->len - (idx + len));
   buffer->len -= len;
 }
@@ -279,12 +282,8 @@ void sy_buffer_utf8_appendf(sy_buffer_t *str, const char *fmt, ...) {
 static size_t find_index(sy_buffer_t *str, size_t idx) {
   size_t i = 0;
   while (i < str->len) {
-    // if (i == idx)
-    // return i;
-
     if (SY_IS_UTF(str->data[i])) {
       i += utf_width(str->data[i]);
-      // idx += utf_width(str->data[i]);
     } else {
       i++;
     }
@@ -301,7 +300,7 @@ static size_t find_rindex(sy_buffer_t *str, size_t idx) {
   while (i < str->len) {
 
     if (SY_IS_UTF(str->data[i])) {
-      i += 1; // utf_width(str->data[i]);
+      i += 1;
       idx += utf_width(str->data[i]);
     } else {
       i++;

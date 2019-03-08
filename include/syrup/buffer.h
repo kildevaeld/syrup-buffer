@@ -34,7 +34,6 @@ size_t sy_buffer_indexof(sy_buffer_t *, unsigned char);
 size_t sy_buffer_lastindexof(sy_buffer_t *buffer, unsigned char c);
 // Remove
 void sy_buffer_remove(sy_buffer_t *, size_t idx, size_t len);
-// void sy_buffer_pop(sy_buffer_t *);
 void sy_buffer_clear(sy_buffer_t *);
 void sy_buffer_compact(sy_buffer_t *);
 // Stats
